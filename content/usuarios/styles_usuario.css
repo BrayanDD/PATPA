@@ -1,0 +1,874 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    z-index: 100;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+/* CABEZA */
+header{
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    z-index: 104;
+    background-color: #fff5ed;
+}
+.container_header{
+    margin: 0px auto 0 auto;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+
+}
+.logo{
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+.logo img{
+    margin-top: 11px;
+    width: 65px;
+    margin-left: 50px;
+    height: 55px;
+}
+.logo p{
+    margin-left: 50px;
+
+    color: #f95e16;
+    text-align: center;
+    margin-top: 0;
+    
+}
+.usuario{
+    height: 100%;
+    margin-left: 10px;
+    align-items: center;
+    display: flex;
+    max-width: 200px;
+    /* overflow:hidden ; */
+}
+.usuario img{
+    padding-top: 8px;
+    width: 65px;
+    height: 65px;
+    
+}
+.usuario a{
+    color: black;
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+ 
+}
+.menu{
+    display: flex;
+    align-items: center;
+}
+.menu nav{
+    margin: 0 20px;
+}
+.menu nav ul{
+    margin-left: 30px;
+    display: flex;
+}
+
+.menu nav ul li{
+    list-style: none;
+    margin: 20px 16px;
+}
+.menu nav ul li a{
+    color: black;
+    font-size: 16px;
+    position: relative;
+    text-decoration: none;
+}
+.menu nav ul li a:hover{
+    color: #f95e16;
+    border-bottom: 2px solid #f95e16;
+    transition: all 100ms;
+
+}
+.eslogan{
+    text-align: center;
+    margin: auto;
+    color: #f95e16;
+}
+
+.container_header form{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    float: right;
+    border-radius: 2%;
+}
+
+.formulario_buscar input{
+    box-sizing: border-box;
+    align-items: center;
+    height: 30px;
+    border-radius: 8px;
+    margin-left: 40px;
+    border: 1px solid grey;
+    
+}
+.formulario_buscar button{
+    margin-left: 7px;
+    width: 60px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 2px solid #f95e16;
+    transition: all 300ms;
+}
+.buscar{
+    align-items: center;
+    border-color: #f95e16;
+    color: #f95e16;
+}
+.buscar:hover{
+    background-color: #f95e16;
+    color: white;
+    border-color: #f95e16;
+}
+.-control:focus{
+    box-shadow: none;
+
+    outline: none;
+}
+.cerrar_informacion{
+    visibility: hidden;
+}
+/* PRINCIPAL*/
+main{
+    display: block;
+    padding-top: 100px;
+    max-width: 1200px;
+    margin: auto;
+    
+}
+.informacion_articulo{
+    width: 80%;
+    float: left;
+    z-index: 310;
+    margin: 0 10% 0 10%;
+    text-align: center;
+    height: 100%;
+    background-color: white;
+    position: fixed;
+    margin-top: -10;
+    visibility: hidden;
+    opacity: 0;
+}
+.cabeza{
+    height: 10%;
+    width: 100%;
+}
+.cabeza h2{
+    float: left;
+    margin:30px;
+
+}
+.cabeza button{
+    float: right;
+    margin:20px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #f95e16;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.contenido{
+    height: 70%;
+    width: 100%;
+    display: flex;
+}
+.contenido img{
+    width: 30%;
+    height: 60%;
+    padding: 30px;
+}
+.descripcion_pedido{
+    width: 70%;
+    height: 100%;
+    text-align: left;
+}
+.descripcion_pedido p{
+    max-height: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.contenedor_colapsar{
+    height: 70%;
+    margin-top: 13px;
+    overflow-y: scroll;
+    
+}
+.colapsar{
+    height: 70px;
+    max-height: 70px;
+    width: 100%;
+    background-color: rgb(239, 226, 226);
+
+}
+.colapsar h3{
+    padding: 10px 45px 0px 15px;
+
+}
+
+
+.final{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.final form, .final button {
+    margin: 0 10px;
+}
+.final_añadir{
+    width: 70px;
+}
+.final_pagar{
+    width: 170px;
+    display: flex;
+}
+.final_pagar p{
+   margin-left: 30%;
+}
+
+.boton_editar{
+    margin-top: -37px;
+    float: right;
+    width: 80px;
+    height: 30px;
+    z-index: 300;
+    background-color: #f95e16;
+    border: none;
+    color: white;
+    border-radius: 13px;
+    cursor: pointer;
+}
+.boton_editar:hover{
+    width: 85px;
+    height: 37px;
+    transition: all 300ms;
+    font-size: 17px;
+}
+/* EDITAR    */
+.editar{
+    width: 40%;
+    height: 100%;
+    position: fixed;
+    background-color: white;
+    z-index: 201;
+    visibility: hidden;
+    opacity: 0;
+    margin: 0px 26%;
+    box-shadow: 5px 55px 55px 10px rgba(128,128,128,0.5);
+    border: 1px solid #f95e16;   
+}
+.editar img{
+    padding: 10px;
+    height: 40%;
+    width: 47%;
+
+}
+.editar form{
+    margin-left: 30px;
+}
+.editar form input{
+    height: 30px;
+    margin-bottom: 10px;
+}
+.editar form label{
+    display: block;
+      margin-bottom: 5px;
+}
+.editar button{
+    float: right;
+    margin: 10px 30px 0px 10px;
+    height: 30px;
+    width: 85px;
+    color: #f95e16;
+    background-color: transparent;
+    border: none;
+    font-size: 17px;
+
+}
+.editar button:hover{
+    background-color: #f95e16;
+    color: white;
+    border-radius: 30px;
+}
+/* PARTE IZQUIERDA  */
+.portada_empresa{
+    width: 25%;
+    height: 600px;
+    float: left;
+    padding: 10px 10px 0px 4px;
+}
+.fondo{
+    width: 100%;
+    height: 150px;
+}
+.portada_logo{
+    height: 70px;
+    width: 70px;
+    z-index: 0;
+    position: relative;
+    margin-top: -35px;
+    margin-left: 10%;
+    background-color: white;
+    border-radius: 50%;
+}
+.portada_menu{
+    width: 100%;
+    margin-top: 5px;
+    height: 250px;
+    overflow-y: scroll;
+}
+.portada_menu div{
+    height: 50px;
+    padding-left: 7px;
+    width: 100%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+.portada_menu div p{
+    padding-top: 10px;
+}
+.portada_menu div:hover{
+    background-color: #f95e16;
+    color: white;
+    transition: all 300ms;
+}
+
+/* PARTE DERECHA */
+.mas_usado{
+    width: 75%;
+    height: 600px;
+    margin-top: 20px;
+    padding-left: 10px;
+    overflow-y: scroll;
+    display: flex; 
+    flex-wrap: wrap;
+}
+.contenido_menu {
+    display: block;
+    width: 100%;
+    margin-bottom: 60px;
+
+}
+.menu_inventario{
+    height: 155px;
+    width: 350px;
+    float: left;
+    margin: 30px;
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid rgb(180, 180, 180);
+}
+.menu_inventario:hover{
+    border: 1px solid #f95e16;
+    transition: all 300ms;
+}
+.menu_inventario_imagen{
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+.menu_inventario_imagen img{
+    width: 80%;
+    height: 70%;
+    margin: 10% 0% 10% 10%;
+    background-color: white;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 13px;
+
+}
+.menu_inventario_informacion{
+    width: 70%;
+    height: 100%;
+    float: left;
+    padding-left: 10px;
+}
+.menu_inventario_descripcion{
+    margin-top: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+    overflow-wrap: break-word;
+
+    height: 70px;
+    width: 100%;
+}
+.menu_inventario_descripcion p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* INFORMACION */
+.informacion_empresa{
+    width: 100%;
+    margin-top: 23px;
+   
+}
+.informacion_basica{
+    width: 100%;
+    padding-left: 10px;
+}
+.informacion_basica div{
+    display: flex;
+    width: 100%;
+    height: 40px;
+
+    border-bottom: 1px solid rgb(180, 180, 180);
+}
+.informacion_basica div h2{
+    border-bottom: 1px solid rgb(180, 180, 180);
+    margin-bottom: 12px;
+}
+.informacion_basica div h4,.informacion_basica div p{
+    margin-top: 5px;
+    margin-left: 10px;
+    width: 50%;
+}
+.horario_mapa{
+    width: 100%;
+    display: flex;
+    margin: 30px 0px 10px 0px;
+}
+.horario{
+    width: 30%;
+}
+.horario div{
+    display: flex;
+}
+.horario div h2{
+    width: 100%;
+}
+.horario div h4,.horario div p{
+    margin-top: 15px;
+    margin-left: 10px;
+    width: 50%;
+}
+/* parte del mapa */
+.mapa{
+    width: 70%;
+}
+.mapa div{
+    background-color: #f95e16;
+    width: 100%;
+    height: 450px;
+}
+/* comentarios */
+.comentarios{
+    width: 100%;
+    height: 300px;
+    background-color: grey;
+}
+/* FOOTER*/
+footer{
+    margin-top: auto;
+    height: 150px;
+    width: 100%;
+    background-color: #fff5ed;
+    opacity: 1;
+    display: flex;
+}
+.contenido_footer{
+    display: flex;
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+    align-items: center;
+}
+.contenido_footer div{
+    z-index: 0;
+
+    width: 33%;
+    text-align: center;
+}
+.cookies a:hover{
+    color: #f95e16;
+    border-bottom: 2px solid #f95e16;
+
+}
+.cookies a{
+    text-decoration: none;
+    color: black;
+    margin-left: 40px;
+}
+.informacion p{
+    margin-top: 9px;
+}
+.redes_sociales a img{
+    width: 50px;
+    height: 50px;
+    margin-left: 30px;
+}
+.bar_menu{
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 29px;
+    cursor:pointer;
+    transform: translate(-50%, -2%);
+    display: none;
+}
+.bar_menu span{
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #f95e16;
+    margin-top: 4px;
+    transition: all 300ms;
+    transform-origin: 0px 100%;
+}
+.activelinea1_bar_menu{
+    transform: rotate(45deg) translate(-3px, -3px);
+}
+.activelinea2_bar_menu{
+    opacity: 0;
+    margin-left: 30px;
+}
+.activelinea3_bar_menu{
+    transform: rotate(-45deg) translate(-3px, 4px);
+}
+@media screen and (max-width: 1000px) {
+    body{
+        height: 100;
+    }
+    /* HEADER */
+    .bar_menu{
+        display: block;
+        width: 30px;
+        height: 40px;
+        margin-top: 20px;
+        margin-left: 29px;
+        margin-right: 0px;
+        opacity: 1;
+        cursor:pointer;
+        /* transform: translate(-50%, -2%); */
+        visibility: visible;
+    
+    }
+    .menu {
+        align-items: baseline;
+        position: absolute;
+        width: 100%;
+
+    }
+   .container_header {
+    visibility: hidden;
+    
+    position: absolute;
+    flex-direction: column;
+    width: 50%;
+    opacity: 0;
+    height: 100vh;
+    
+
+  }
+  .cerrar_informacion:hover{
+    background-color: #f95e16;
+    color: white;
+    transition: all 300ms;
+}
+.cerrar_informacion{
+    margin-left: 70%;
+    margin-top: 13px;
+    position: absolute;
+    z-index: 101;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: #f95e16;
+    width: 90px;
+    border-radius: 11px;
+    height: 30;
+    visibility: visible;
+}
+  
+.formulario_buscar{
+    position: relative;
+    display: block;
+    height: 40px;
+    margin-left: -2px;
+    margin-top: -240px;
+  }
+  .formulario_buscar input{
+    width: 160px;
+    display: block;
+    margin-left: 35px;
+  }
+  
+  body header .menu{
+    background-color: white;
+    height: 100%;
+
+
+  }
+  .logo{
+    margin-left: 20px;
+  }
+  /* .usuario {
+    display: none; 
+  } */
+  .menu nav ul {
+    margin-top: 110px;
+    margin-left: -2px;
+    margin-right: 2px;
+    flex-direction: column;
+    bottom: 0;
+
+  }
+    footer {
+        position: relative;
+        z-index: 0;
+    }
+
+   /* CONTENIDO */
+
+   .portada_empresa{
+    width: 100%;
+    margin: auto;
+   }
+   .fondo{
+    width: 100%;
+    height: 40%;
+   }
+   .portada_menu{
+    width: 100%;
+    margin-top: 5px;
+    height: 50px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: sticky !important;
+    display: flex;
+    
+    top: 50px !important;
+    border-bottom: 1px solid  rgb(180, 180, 180);
+    
+    }
+    .portada_menu div{
+        width: auto;
+        margin-left: 20px;
+        flex: 0 0 auto;
+    }
+    .portada_menu::-webkit-scrollbar{
+        width: 0px;
+    }
+    .portada_menu div:hover{
+        background-color: initial;
+        color: black;
+        transition: all 300ms;
+    }
+    
+    .portada_menu div p:hover{
+        border-bottom: 2px solid #f95e16;
+        transition: all 100ms;
+    }
+    /* Inventario */
+    .mas_usado{
+        width: 100%;
+
+        height: 600px;
+        margin-top: 20px;
+        padding-left: 10px;
+        overflow-y: scroll;
+        display: flex; 
+        flex-wrap: wrap;
+    }
+    .contenido_menu {
+        display: block;
+        width: 100%;
+        margin-bottom: 60px;
+        
+
+    }
+    .menu_inventario{
+        height: 150px;
+        width: 390px;
+        float: left;
+        margin: 15px;
+        border-bottom: 1px solid rgb(180, 180, 180);
+    }
+
+    /* INFORMACION AL DARLE CLICK A UN ARTICULO */
+    .informacion_articulo{
+        width: 100%;
+        margin:auto;
+
+    }
+    .contenido img{
+        width: 30%;
+        height: 40%;
+        padding: 30px;
+    }
+    /* EDITAR */
+    .editar{
+        width: 100%;
+        margin-left: -0%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+  .logo img {
+    width: 50px; /* Reducir el tamaño del logo en pantallas pequeñas */
+    height: 45px;
+  }
+  .bar_menu{
+    display: block;
+    width: 30px;
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 29px;
+    margin-right: -50px;
+    opacity: 1;
+    cursor:pointer;
+    /* transform: translate(-50%, -2%); */
+    visibility: visible;
+
+}
+  .usuario img{
+    width: 60px;
+    height: 65px;
+    border-radius: 53px;
+    margin-left: 30px;
+    
+}
+  .cerrar_informacion:hover{
+    background-color: #f95e16;
+    color: white;
+    transition: all 300ms;
+}
+.cerrar_informacion{
+    margin-left: 65%;
+    margin-top: 13px;
+    position: absolute;
+    z-index: 101;
+    background-color: transparent;
+    border: none;
+    margin-right: 13px;
+    font-size: 18px;
+    color: #f95e16;
+    width: 75px;
+    border-radius: 11px;
+    height: 30;
+}
+  
+  .formulario_buscar{
+  
+    position: absolute;
+    display: block;
+    height: 40px;
+    margin-left: -2px;
+    padding-top: -70px;
+  }
+  .formulario_buscar input{
+    width: 130px;
+    display: block;
+    margin-left: 35px;
+  }
+  
+  .horario{
+    width: 30%;
+}
+.horario div{
+    display: flex;
+}
+.horario h2{
+    width: 100%;
+    font-size: 16px;
+    padding: 2px;
+}
+.horario div h4,.horario div p{
+    margin-top: 15px;
+    margin-left: 10px;
+    width: 50%;
+    
+    font-size: 14px;
+
+}
+.informacion_articulo{
+    width: 100%;
+
+    z-index: 310;
+    margin: auto;
+
+}
+
+.contenido{
+    height: 70%;
+    width: 100%;
+    display: flex;
+}
+.contenido img{
+    width: 30%;
+    height: 30%;
+    padding: 30px;
+}
+.descripcion_pedido{
+    width: 70%;
+    height: 100%;
+    text-align: left;
+}
+.descripcion_pedido p{
+    max-height: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.contenedor_colapsar{
+    height: 70%;
+    margin-top: 13px;
+    overflow-y: scroll;
+    
+}
+.colapsar{
+    height: 70px;
+    max-height: 70px;
+    width: 100%;
+    background-color: rgb(239, 226, 226);
+
+}
+.colapsar h3{
+    padding: 10px 45px 0px 15px;
+
+}
+
+
+.final{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.final form, .final button {
+    margin: 0 10px;
+}
+.final_añadir{
+    width: 70px;
+}
+.final_pagar{
+    width: 170px;
+    display: flex;
+}
+.final_pagar p{
+   margin-left: 30%;
+}
+}
