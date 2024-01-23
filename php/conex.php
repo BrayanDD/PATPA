@@ -1,15 +1,4 @@
-<?php
-$servername = "sql212.infinityfree.com";
-$username = "epiz_34328927";
-$password = "p67bcpLswq";
-$database = "epiz_34328927_XXX"; 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $database);
+<?php 
+$conn = mysqli_connect("bt760drmqo1pcilguqzp-mysql.services.clever-cloud.com", "umqburzuq4natlq7", "SUlVVLZ6KVIHaLrHwuJQ", "bt760drmqo1pcilguqzp");
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
-echo "Conexión exitosa";
 ?>

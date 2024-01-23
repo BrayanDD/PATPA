@@ -15,7 +15,8 @@
     }else{
         
         echo ' 
-        <script>alert("Usuario no existe");
+        <script>aler
+        t("Usuario no existe");
         window.location = "../index.php";
         
         </script>
