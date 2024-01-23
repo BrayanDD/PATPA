@@ -43,6 +43,8 @@
             // formulario_register_repartidor.style.display = "none";
             formulario_register_empresa.style.display = "none";
             caja_trasera_register.style.opacity = "1";
+            caja_trasera_register.style.display = "block";
+
             caja_trasera_login.style.opacity = "0";
         } else {
             console.log("caja:", caja_trasera_register);
