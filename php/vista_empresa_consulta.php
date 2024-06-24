@@ -2,67 +2,101 @@
 session_start();
 include "conex.php";
 
-
-//INFORMACION DEL USUARIO
+// INFORMACION DEL USUARIO
 $correo = $_SESSION['usuario'];
 
-
-$datos_usu = $conn->query("SELECT * FROM usuario where correo = '$correo'");
+// Preparar la consulta
+$stmt_usu = $conn->prepare("SELECT * FROM usuario WHERE correo = ?");
+$stmt_usu->bind_param("s", $correo); // "s" indica que el parámetro es un string
+$stmt_usu->execute();
+$datos_usu = $stmt_usu->get_result();
 $usuario = $datos_usu->fetch_assoc();
+$stmt_usu->close();
 
-//empresa sele
-
-
-if($_GET['id_empresa']){
+// Empresa seleccionada
+if(isset($_GET['id_empresa'])){
     $empresa_id = $_GET['id_empresa'];
 }
 
-
-
-$consulta = $conn->query("SELECT usuario.*, rol.rol AS nombre_rol, categoria.categorias as nombre_categoria FROM usuario 
-                         JOIN rol ON usuario.id_rol = rol.id JOIN categoria ON usuario.categorias = categoria.id
-                         WHERE usuario.id = '$empresa_id'");
+// Preparar la consulta
+$stmt_consulta = $conn->prepare("SELECT usuario.*, rol.rol AS nombre_rol, categoria.categorias AS nombre_categoria 
+                                 FROM usuario 
+                                 JOIN rol ON usuario.id_rol = rol.id 
+                                 JOIN categoria ON usuario.categorias = categoria.id
+                                 WHERE usuario.id = ?");
+$stmt_consulta->bind_param("i", $empresa_id); 
+$stmt_consulta->execute();
+$consulta = $stmt_consulta->get_result();
 $row = $consulta->fetch_assoc();
 $usuario_id = $row['id'];
-    
-    /// todas las categorias
-    $categorias = $conn->query("SELECT * From categoria");
-    $filas_informacion_categoria = $categorias->fetch_assoc();
+$stmt_consulta->close();
 
-    ///mirar cateforias con where
-$informacion_seccion_empresa = $conn->query("SELECT * FROM seccion 
-where  empresa_id = $empresa_id");
+// Todas las categorias
+$categorias = $conn->query("SELECT * FROM categoria");
+$filas_informacion_categoria = $categorias->fetch_assoc();
+
+// Preparar la consulta para secciones
+$stmt_seccion_empresa = $conn->prepare("SELECT * FROM seccion WHERE empresa_id = ?");
+$stmt_seccion_empresa->bind_param("i", $empresa_id); 
+$stmt_seccion_empresa->execute();
+$informacion_seccion_empresa = $stmt_seccion_empresa->get_result();
+$stmt_seccion_empresa->close();
+
 
 
 $filas_informacion_secciones_empresa = $informacion_seccion_empresa->fetch_assoc();
  
 
-$articulos_empresa = $conn->query("SELECT articulo.*, categoria.categorias AS nombre_categoria, seccion.nombre AS nombre_seccion
-FROM articulo
-INNER JOIN categoria ON articulo.categoria_id = categoria.id
-INNER JOIN seccion ON articulo.seccion_id = seccion.id
-WHERE articulo.usuario_id = '$empresa_id' ");
-$filas_articulos_empresa = $articulos_empresa->fetch_assoc();
+// Consultar Artículos de Empresa
+$articulos_empresa_stmt = $conn->prepare("SELECT articulo.*, categoria.categorias AS nombre_categoria, seccion.nombre AS nombre_seccion
+                                          FROM articulo
+                                          INNER JOIN categoria ON articulo.categoria_id = categoria.id
+                                          INNER JOIN seccion ON articulo.seccion_id = seccion.id
+                                          WHERE articulo.usuario_id = ?");
+$articulos_empresa_stmt->bind_param("i", $empresa_id);
+$articulos_empresa_stmt->execute();
+$articulos_empresa_result = $articulos_empresa_stmt->get_result();
+$filas_articulos_empresa = $articulos_empresa_result->fetch_assoc();
+$articulos_empresa_stmt->close();
 
-$coordenadas = $conn->query("SELECT * FROM usuario where id = '$empresa_id'");
-$fila_coordenadas = $coordenadas->fetch_assoc();
+// Consultar Coordenadas de Usuario
+$coordenadas_stmt = $conn->prepare("SELECT * FROM usuario WHERE id = ?");
+$coordenadas_stmt->bind_param("i", $empresa_id);
+$coordenadas_stmt->execute();
+$coordenadas_result = $coordenadas_stmt->get_result();
+$fila_coordenadas = $coordenadas_result->fetch_assoc();
+$coordenadas_stmt->close();
+
 
 // MOSTRAR COMENTARIO
 
-$comentarios_empresa = $conn->query("SELECT comentario.*,
+// Consultar Comentarios de Empresa
+$comentarios_empresa_stmt = $conn->prepare("SELECT comentario.*,
                                             usuario.usuario as nombre_usuario,
                                             usuario.foto as imagen_usuario
                                             FROM comentario
                                             INNER JOIN usuario ON comentario.id_usuario = usuario.id
-                                            WHERE id_empresa = '$empresa_id'");
+                                            WHERE id_empresa = ?");
+$comentarios_empresa_stmt->bind_param("i", $empresa_id);
+$comentarios_empresa_stmt->execute();
+$comentarios_empresa_result = $comentarios_empresa_stmt->get_result();
 
-if($comentarios_empresa){
-    while($filas_comentarios_empresa = $comentarios_empresa->fetch_assoc()){
-    //MOSTRAR CALIFICACION DE USUARIO
-    $id_comentario_usuario = $filas_comentarios_empresa['id_usuario'];
-    $calificacion_usuario = $conn->query("SELECT calificacion From calificacion_empresa Where id_usuario = '$id_comentario_usuario' and id_empresa = '$empresa_id'");
+if($comentarios_empresa_result){
+    while($filas_comentarios_empresa = $comentarios_empresa_result->fetch_assoc()){
+        $id_comentario_usuario = $filas_comentarios_empresa['id_usuario'];
+
+        // Consultar Calificación de Usuario
+        $calificacion_usuario_stmt = $conn->prepare("SELECT calificacion FROM calificacion_empresa 
+                                                     WHERE id_usuario = ? AND id_empresa = ?");
+        $calificacion_usuario_stmt->bind_param("ii", $id_comentario_usuario, $empresa_id);
+        $calificacion_usuario_stmt->execute();
+        $calificacion_usuario_result = $calificacion_usuario_stmt->get_result();
+
+        $calificacion_usuario_stmt->close();
     }
 }
+$comentarios_empresa_stmt->close();
+
 mysqli_close($conn);
 
 ?>

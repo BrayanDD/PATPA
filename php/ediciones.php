@@ -6,9 +6,13 @@ include "conex.php";
 if(isset($_GET['codigo_seccion_editar'])) {
         
         $codigo_seccion = $_GET['codigo_seccion_editar'];
-        $informacion_seccion_empresa = $conn->query("SELECT * FROM seccion where  id = '$codigo_seccion'");
+        $stmt = $conn->prepare("SELECT * FROM seccion WHERE id = ?");
+        $stmt->bind_param("i", $codigo_seccion);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
-        $filas_informacion_secciones_empresa = $informacion_seccion_empresa->fetch_assoc();
+        $filas_informacion_secciones_empresa = $resultado->fetch_assoc();
+        $stmt->close();
         ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -44,7 +48,7 @@ if(isset($_GET['codigo_seccion_editar'])) {
     </div>
 
 
-    <!-- Script para abrir automáticamente el modal al cargar la página -->
+
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -62,14 +66,17 @@ if(isset($_GET['codigo_seccion_editar'])) {
     <?php
         
         if (isset($_POST['edicion_seccion'])) {
-            // Verifica que el formulario ha sido enviado
+                  
             $nueva_nombre_seccion = $_POST['edicion_seccion_nombre'];
         
         
             $codigo_seccion = $_GET['codigo_seccion_editar'];
-            $sql_update = "UPDATE seccion SET nombre = '$nueva_nombre_seccion' WHERE id = '$codigo_seccion'";
+            $sql_update =  $conn->prepare("UPDATE seccion SET nombre = ? WHERE id = ?");
+            $sql_update->bind_param("si", $nueva_nombre_seccion, $codigo_seccion);
+            $sql_update->execute();
             
-            if ($conn->query($sql_update) === TRUE) {
+            
+            if ($sql_update) {
                 
                 echo '<script>alert("Sección actualizada correctamente"); window.location = "../content/usuarios/usuario_empresa.php";</script>';
             } else {
@@ -81,7 +88,9 @@ if(isset($_GET['codigo_seccion_editar'])) {
 }
 if(isset($_GET['codigo_seccion_eliminar'])){
     $seccion_id=$_GET['codigo_seccion_eliminar'];
-    $eliminar = $conn->query("DELETE From seccion where id = '$seccion_id'");
+    $sql_delete = $conn->prepare("DELETE FROM seccion WHERE id = ?");
+    $sql_delete->bind_param("i", $seccion_id);
+    $sql_delete->execute();
 
     if($eliminar){
         echo '<script>alert("Sección Eliminada correctamente"); window.location = "../content/usuarios/usuario_empresa.php";</script>';
@@ -109,13 +118,22 @@ if(isset($_POST['editar_articulo'])){
 
     if (empty($_FILES['imagen_editar']['tmp_name'])){
 
-        $actualizar=$conn->query("UPDATE articulo 
-        SET nombre='$nombre', 
-            categoria_id='$categoria', 
-            seccion_id='$seccion', 
-            descripcion='$descripcion', 
-            precio='$precio' 
-        WHERE id='$id_articulo'");
+        $sql_update = $conn->prepare("UPDATE articulo 
+                              SET nombre = ?, 
+                                  categoria_id = ?, 
+                                  seccion_id = ?, 
+                                  descripcion = ?, 
+                                  precio = ? 
+                              WHERE id = ?");
+        $sql_update = $conn->prepare("UPDATE articulo 
+        SET nombre = ?, 
+            categoria_id = ?, 
+            seccion_id = ?, 
+            descripcion = ?, 
+            precio = ? 
+        WHERE id = ?");
+        $sql_update->bind_param("siisdi", $nombre, $categoria, $seccion, $descripcion, $precio, $id_articulo);
+        $sql_update->execute();
         if($actualizar){echo '
             <script>alert("Articulo editado con exito");
             window.location = "../content/usuarios/usuario_empresa.php";
@@ -163,7 +181,9 @@ if(isset($_POST['editar_informacion_usuario'])){
     // Obtener el ID del usuario
     $id_usuario = $_POST['id_usuario'];
 
-    $verificar_redireccion = $conn->query("SELECT * FROM usuario where id = '$id_usuario'");
+    $sql_verificar_redireccion = $conn->prepare("SELECT * FROM usuario WHERE id = ?");
+    $sql_verificar_redireccion->bind_param("i", $id_usuario);
+    $sql_verificar_redireccion->execute();
         $fila_verificar = $verificar_redireccion->fetch_assoc();
     // Obtener la información del fondo
     $fondo_nuevo = $_FILES['fondo_nuevo'];
@@ -183,11 +203,13 @@ if(isset($_POST['editar_informacion_usuario'])){
 
     // Validar si no se ha subido un nuevo fondo ni una nueva foto
     if (empty($fondo_nombre) && empty($foto_nombre)) {
-        $actualizar = $conn->query("UPDATE usuario 
-            SET usuario='$usuario_nuevo',
-                direccion='$direccion_nueva' 
-            WHERE id='$id_usuario'");
-        if ($actualizar) {
+        $sql_actualizar = $conn->prepare("UPDATE usuario 
+        SET usuario = ?, 
+            direccion = ?
+        WHERE id = ?");
+        $sql_actualizar->bind_param("ssi", $usuario_nuevo, $direccion_nueva, $id_usuario); // "ssi" indica los tipos de datos: string, string, integer
+        $sql_actualizar->execute();
+        if ($sql_actualizar) {
            if($fila_verificar['id_rol'] == 1){
             echo '
                 <script>alert("Usuario editado con éxito");
@@ -240,11 +262,13 @@ if(isset($_POST['editar_informacion_usuario'])){
             $directorio_fondo = "../images/fondo" . $id_usuario . "." . $tipo_imagen_fondo;
             $ruta_fondo = "images/fondo" . $id_usuario . "." . $tipo_imagen_fondo;
         
-            $actualizar = $conn->query("UPDATE usuario 
-                SET usuario='$usuario_nuevo',
-                    fondo='$ruta_fondo', 
-                    direccion='$direccion_nueva' 
-                WHERE id='$id_usuario'");
+            $sql_actualizar = $conn->prepare("UPDATE usuario 
+            SET usuario = ?, 
+                foto = ?, 
+                direccion = ?
+            WHERE id = ?");
+            $sql_actualizar->bind_param("sssi", $usuario_nuevo, $ruta, $direccion_nueva, $id_usuario); 
+            $sql_actualizar->execute();
         
             // Almacenar en el servidor y verificar si se movió correctamente
             if (move_uploaded_file($fondo_temporal, $directorio_fondo)) {
@@ -274,7 +298,9 @@ if(isset($_POST['coordenadas'])){
     $latitud = $_POST['latitud'];
     $longitud = $_POST['longitud'];
 
-    $coordenadas=$conn->query("UPDATE usuario SET latitud = '$latitud', longitud = '$longitud' where id = '$id_usuario'");
+    $sql_actualizar_coordenadas = $conn->prepare("UPDATE usuario SET latitud = ?, longitud = ? WHERE id = ?");
+    $sql_actualizar_coordenadas->bind_param("ddi", $latitud, $longitud, $id_usuario); 
+    $sql_actualizar_coordenadas->execute();
     if($coordenadas){
         echo '
                     <script>alert("Coordenadas editadas con éxito");
