@@ -87,7 +87,7 @@
                         <input type="email" placeholder="Correo Electronico" name="correo" required>
                         <input type="text" placeholder="Usuario" name="usuario" required>
                         <input type="text" placeholder="Direccion" name="direccion" required>
-                        <label for="categorias">Categorias:</label>
+                       
                         <select id="categorias" class="form-select" name="categoria" required>
                             <option selected value="" disabled>Selecionar</option>
                             <option value="1">Comidas Rapidas</option>

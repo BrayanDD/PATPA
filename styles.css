@@ -73,6 +73,7 @@ main{
 
 .caja__trasera button{
     padding: 10px 20px;
+    border-radius: 0.8em;
     border: 2px solid #fff;
     font-size: 14px;
     background: transparent;
@@ -133,8 +134,13 @@ main{
     outline: none;
 }
 .form-select{
-    background-color: #f95e16 !important;
-    color: white; /* Cambia el color del texto según sea necesario */
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px #ea430c solid;
+    
+    font-size: 16px;
+    
   }
 .form-select:focus {
     border-color: none;

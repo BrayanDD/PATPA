@@ -186,7 +186,7 @@ main{
     visibility: hidden;
     transition: all 300ms;
     background-color: white;
-    z-index: 101;
+    z-index: 111;
     float: left;
     border-right: 1px solid #f95e16;
     box-shadow: 15px 15px 5px 4300px rgba(128, 128, 128, 0.3);
