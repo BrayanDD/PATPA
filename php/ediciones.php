@@ -12,7 +12,7 @@ if(isset($_GET['codigo_seccion_editar'])) {
         $resultado = $stmt->get_result();
 
         $filas_informacion_secciones_empresa = $resultado->fetch_assoc();
-        $stmt->close();
+      
         ?>
     <!DOCTYPE html>
     <html lang="es">

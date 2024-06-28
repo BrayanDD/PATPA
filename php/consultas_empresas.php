@@ -22,6 +22,7 @@ $stmt_usuario->execute();
 $result_usuario = $stmt_usuario->get_result();
 $row = $result_usuario->fetch_assoc();
 $empresa_id = $row['id'];
+$usuario_id_rol = $row['id_rol'];
 $stmt_usuario->close();
 
 // Mostrar todas las categorías
@@ -111,7 +112,7 @@ if(isset($_POST['idArticulo'])){
         echo 'error';
         exit;
     }
-    $stmt_info_articulo->close();
+    
 }
 
 // Filtrar empresas por categoría
@@ -119,13 +120,16 @@ if (isset($_GET['id_categoria'])) {
     $categoria_id = mysqli_real_escape_string($conn, $_GET['id_categoria']);
     $limit = 12;
     
-    $empresa_categoria = $conn->query("SELECT usuario.*, 
+    $categoria_selecionada = $conn->query("SELECT usuario.*, 
                                        categoria.categorias as nombre_categoria 
                                        FROM usuario
                                        INNER JOIN categoria ON usuario.categorias = categoria.id 
                                        WHERE usuario.categorias = '$categoria_id' 
                                        LIMIT $limit");
+    $filas_informacion_categoria = $categoria_selecionada->fetch_assoc();
+    
 } else {
+    $categorias = $conn->query("SELECT * From categoria");
     // Mostrar todas las categorías y limitar los resultados
     $datosConsulta = [];
     $categorias->data_seek(0);

@@ -25,7 +25,7 @@ if ($resultado->num_rows > 0) {
 
 
 
-$stmt->close();
+
 
 
 
@@ -47,7 +47,7 @@ if ($resultado->num_rows > 0) {
 
 
 
-$stmt->close();
+
 
 
 if(isset($_POST['formulario1'])){
@@ -61,7 +61,7 @@ if(isset($_POST['formulario1'])){
     $stmt = $conn->prepare("INSERT INTO usuario (nombre, correo, usuario, contraseña, id_rol, foto, fondo, direccion) VALUES (?, ?, ?, ?, ?, 'images/foto_pre.png', 'images/fondo_pre.png', ?)");
     $stmt->bind_param("ssssis", $nombre, $correo, $usuario, $contraseña, $rol, $direccion);
     $stmt->execute();
-    $stmt->close();
+
 }
 else if(isset($_POST['formulario2'])){
     $nombre = $_POST['nombre'];
@@ -75,7 +75,7 @@ else if(isset($_POST['formulario2'])){
     $stmt = $conn->prepare("INSERT INTO usuario (nombre, correo, usuario, edad, contraseña, id_rol, foto, fondo, direccion) VALUES (?, ?, ?, ?, ?, ?, 'images/foto_pre.png', 'images/fondo_pre.png', ?)");
     $stmt->bind_param("ssssiss", $nombre, $correo, $usuario, $edad, $contraseña, $rol, $direccion);
     $stmt->execute();
-    $stmt->close();
+    
 }else {
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
@@ -88,7 +88,7 @@ else if(isset($_POST['formulario2'])){
     $stmt = $conn->prepare("INSERT INTO usuario (nombre, correo, usuario, categorias, contraseña, id_rol, foto, fondo, direccion) VALUES (?, ?, ?, ?, ?, ?, 'images/foto_pre.png', 'images/fondo_pre.png', ?)");
     $stmt->bind_param("ssssiss", $nombre, $correo, $usuario, $categoria, $contraseña, $rol, $direccion);
     $stmt->execute();
-    $stmt->close();
+    
 }
 
 echo ' 

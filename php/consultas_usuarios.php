@@ -10,13 +10,12 @@ $stmt_tipo_usuario = $conn->prepare("SELECT * FROM usuario WHERE correo = ?");
 $stmt_tipo_usuario->bind_param("s", $correo);
 $stmt_tipo_usuario->execute();
 $result_tipo_usuario = $stmt_tipo_usuario->get_result();
-$fila_tipo = $result_tipo_usuario->fetch_assoc();
+$row = $result_tipo_usuario->fetch_assoc();
 
-$stmt_tipo_usuario->close();
 
-$fila_tipo = $tipo_usuario->fetch_assoc();
-$rol_id = $fila_tipo['id_rol'];
-$direccion = $fila_tipo['direccion'];
+$usuario_id_rol = $row['id_rol'];
+$rol_id = $row['id_rol'];
+$direccion = $row['direccion'];
 
 if($rol_id == 1){
     $stmt_consulta = $conn->prepare("SELECT usuario.*, rol.rol AS nombre_rol 
@@ -47,8 +46,7 @@ $usuario_id = $row['id'];
     $stmt_categorias->execute();
     $result_categorias = $stmt_categorias->get_result();
     $filas_informacion_categoria = $result_categorias->fetch_assoc();
-    
-    $stmt_categorias->close();
+
     
 
     ///mirar cateforias con where
@@ -57,8 +55,6 @@ $usuario_id = $row['id'];
     $stmt_seccion->execute();
     $result_seccion = $stmt_seccion->get_result();
     $filas_informacion_secciones_empresa = $result_seccion->fetch_assoc();
-    
-    $stmt_seccion->close();
     
  
 
@@ -72,8 +68,7 @@ $usuario_id = $row['id'];
     $result_articulos = $stmt_articulos->get_result();
     $filas_articulos_empresa = $result_articulos->fetch_assoc();
     
-    $stmt_articulos->close();
-    
+ 
 
 
 
@@ -83,7 +78,7 @@ $usuario_id = $row['id'];
     $result_coordenadas = $stmt_coordenadas->get_result();
     $fila_coordenadas = $result_coordenadas->fetch_assoc();
     
-    $stmt_coordenadas->close();
+   
     
 
 mysqli_close($conn);

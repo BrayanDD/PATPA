@@ -1,155 +1,4 @@
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    z-index: 100;
-}
-body{
-    height: 100%;
-    width: 100%;
-}
-html{width: 100%;}
-/* CABEZA */
-header{
-    height: 100px;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    z-index: 104;
-    background-color: #fff5ed;
-}
-
-.container_header{
-    margin: 0px auto 0 auto;
-    max-width: 100%;
-    height: 100%;
-    display: flex;
-
-}
-.logo{
-    align-items: center;
-    position: relative;
-    z-index: 1;
-}
-.logo img{
-    padding-top: 8px;
-    width: 65px;
-    height: 65px;
-}
-.logo p{
-    color: #f95e16;
-    text-align: center;
-    margin-top: 0;
-    
-}
-.usuario{
-    height: 100%;
-    align-items: center;
-    display: flex;
-    max-width: 300px;
-    /* overflow:hidden ; */
-}
-.usuario img{
-    width: 60px;
-    height: 65px;
-    border-radius: 40%;
-    margin-left: 40px;
-    background-color: transparent;
-    
-}
-.usuario a{
-    color: black;
-    margin-left: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 180px;
- 
-}
-.menu{
-    display: flex;
-    align-items: center;
-}
-.menu nav{
-    margin: 0 20px;
-}
-.menu nav ul{
-    display: flex;
-}
-
-.menu nav ul li{
-    list-style: none;
-    margin: 20px 16px;
-}
-.menu nav ul li a{
-    color: black;
-    font-size: 16px;
-    position: relative;
-    text-decoration: none;
-}
-.menu nav ul li a:hover{
-    color: #f95e16;
-    border-bottom: 2px solid #f95e16;
-    transition: all 100ms;
-
-}
-.eslogan{
-    text-align: center;
-    margin: auto;
-    color: #f95e16;
-}
-
-form{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    position: relative;
-    float: right;
-    border-radius: 2%;
-}
-.formulario-control{
-    height: 50px;
-}
-form input{
-    box-sizing: border-box;
-    align-items: center;
-    text-align: center;
-    width: 110px;
-    height: 25px;
-    
-    border-radius: 8px;
-    
-    border: 1px solid grey;
-    
-}
-form button{
-    margin-left: 7px;
-    width: 60px;
-    height: 30px;
-    background-color: transparent;
-    border-radius: 8px;
-    border: 2px solid #f95e16;
-    transition: all 300ms;
-}
-.buscar{
-    align-items: center;
-    border-color: #f95e16;
-    color: #f95e16;
-}
-.buscar:hover{
-    background-color: #f95e16;
-    color: white;
-    border-color: #f95e16;
-}
-.form-control:focus{
-    box-shadow: none;
-
-    outline: none;
-}
-
 /* PRINCIPAL*/
 main{
     display: block;
@@ -179,23 +28,26 @@ main{
     max-width: 1200px;
     width: 100%;
 }
-.mostrar_informacion{
-    width: 70%;
+.mostrar_informacion {
+    width: 70%; /* Asegura que el ancho ocupe el 100% del contenedor */
+    height: 90vh; /* Asegura que la altura ocupe el 100% de la altura de la ventana */
+    top: 1em; /* Alinea el elemento con la parte superior de la pantalla */
+    overflow-y: scroll;
     opacity: 0;
-    position: absolute;
+    position: fixed; /* Cambia de absolute a fixed para que ocupe toda la pantalla */
     visibility: hidden;
     transition: all 300ms;
     background-color: white;
     z-index: 111;
-    float: left;
     border-right: 1px solid #f95e16;
     box-shadow: 15px 15px 5px 4300px rgba(128, 128, 128, 0.3);
- 
 }
+
 
 .mostrar_informacion_empresa{
     width: 70%;
     opacity: 0;
+    display: none;
     position: absolute;
     visibility: hidden;
     transition: all 300ms;
@@ -327,6 +179,7 @@ main{
 }
 .producto_popular,.local_popular{
     width: 100%;
+    min-height: 100px;
     height: auto;
     max-height: 530px;
     overflow-x: auto;
@@ -391,101 +244,13 @@ main{
     margin-top: 100px;
     margin-bottom: 40px;
 }
-/* FOOTER*/
-footer{
-    margin-top: 100px;
-    height: 150px;
-    width: 100%;
-    bottom: 0;
 
-    background-color: #fff5ed;
-    z-index: 0;
-}
-.contenido_footer{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    z-index: 0;
-    align-items: center;
-}
-.contenido_footer div{
-    width: 33%;
-    text-align: center;
-}
-.cookies a:hover{
-    color: #f95e16;
-    border-bottom: 2px solid #f95e16;
 
-}
-.cookies a{
-    text-decoration: none;
-    color: black;
-    margin-left: 40px;
-}
-.informacion p{
-    margin-top: 9px;
-}
-.redes_sociales a img{
-    width: 50px;
-    height: 50px;
-    margin-left: 30px;
-}
 
-/* MENU HAMBURGUESA */
-.bar_menu{
-    width: 30px;
-    height: 30px;
-    margin-top: 10px;
-    margin-left: 29px;
-    opacity: 0;
-    cursor:pointer;
-    transform: translate(-50%, -2%);
-    visibility: hidden;
-
-}
-.bar_menu span{
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #f95e16;
-    margin-top: 4px;
-    transition: all 300ms;
-    transform-origin: 0px 100%;
-}
-.activelinea1_bar_menu{
-    transform: rotate(45deg) translate(-3px, -3px);
-}
-.activelinea2_bar_menu{
-    opacity: 0;
-    margin-left: 30px;
-}
-.activelinea3_bar_menu{
-    transform: rotate(-45deg) translate(-3px, 4px);
-}
 
 /* Media query para pantallas de tamaño medio y pequeño */
 @media screen and (max-width: 1200px) {
-    body{
-        height: 100;
-    }
-    .bar_menu{
-        width: 30px;
-        height: 30px;
-        margin-top: 20px;
-        margin-left: 39px;
-        margin-right: 20px;
-        opacity: 1;
-        cursor:pointer;
-        transform: translate(-50%, -2%);
-        visibility: visible;
     
-    }
-    .menu {
-        align-items: baseline;
-        
-
-    }
    .container_header {
     visibility: hidden;
     
@@ -516,40 +281,7 @@ footer{
     height: 30;
 }
   
-  .formulario_buscar{
-    position: absolute;
-    display: block;
-    height: 40px;
-    margin-left: -2px;
-    padding-top: 40px;
-  }
-  .formulario_buscar input{
-    width: 160px;
-    display: block;
-    margin-left: 35px;
-  }
-  .buscar{
-    margin-top: 10px;
-    margin-left: 35px;
-    }
-  body header .menu{
-    background-color: white;
-    height: 100%;
-
-
-  }
-  /* .usuario {
-    display: none; 
-  } */
-  .menu nav ul {
-    position: static;
-    margin-top: 110px;
-    margin-left: -2px;
-    margin-right: 2px;
-    flex-direction: column;
-    bottom: 0;
-
-  }
+ 
   .contenedor_categoria {
     width: 100%;
     margin-top: 20px;
@@ -619,16 +351,5 @@ footer{
     height: 30;
 }
   
-  .formulario_buscar{
-    position: absolute;
-    display: block;
-    height: 40px;
-    margin-left: -2px;
-    padding-top: 40px;
-  }
-  .formulario_buscar input{
-    width: 130px;
-    display: block;
-    margin-left: 35px;
-  }
+
 }

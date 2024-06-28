@@ -1,0 +1,47 @@
+/* FOOTER*/
+footer{
+    margin-top: 2em;
+    height: 180px;
+    width: 100%;
+    bottom: 0;
+
+    background-color: #fff5ed;
+    z-index: 0;
+}
+.contenido_footer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    z-index: 0;
+    align-items: center;
+}
+.contenido_footer div{
+    width: 33%;
+    text-align: center;
+}
+.cookies a:hover{
+    color: #f95e16;
+    border-bottom: 2px solid #f95e16;
+
+}
+.cookies a{
+    text-decoration: none;
+    color: black;
+    margin-left: 40px;
+}
+.informacion p{
+    margin-top: 9px;
+}
+.redes_sociales a img{
+    width: 50px;
+    height: 50px;
+    margin-left: 30px;
+}
+@media screen and (max-width: 580px) {
+    .redes_sociales a img{
+        width: 30px;
+        height: 30px;
+        margin-left: 30px;
+    }
+  }

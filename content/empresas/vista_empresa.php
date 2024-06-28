@@ -27,62 +27,8 @@ if(!isset($_SESSION['usuario'])){
 </head>
   <body>
     <!-- CABEZA DE MENU -->
-    <header>
-        <div class="bar_menu">
-            <span class="linea1_bar_menu"></span>
-            <span class="linea2_bar_menu"></span>
-            <span class="linea3_bar_menu"></span>
-        </div>
-        <div class="logo">
-        
-            <?php
-                if($usuario['id_rol'] == 1){
-                ?>
-                    <img src="../../images/img_usuario_usuario.png" alt="">
-                    <p>Usuario</p>
-                <?php 
-                    }elseif($usuario['id_rol'] == 2){
-                ?>
-                <img src="../../images/img_usuario_repartidor.png" alt="">
-                <p>Repartidor</p>
-                <?php 
-                }else{
-                    ?>
-                    <img src="../../images/img_usuario_empresa.jpg" alt="">
-                    <p>Empresa</p>
-                    <?php 
-                    }
-                    ?>
-        </div>
-     <div class="usuario">
-            <img src="../../<?php echo $usuario['foto']?>" alt="">
-            <a href=""><?php echo $usuario['usuario'] ?></a>
-     </div>
-        <div class="container_header">
-            <button class="cerrar_informacion">X</button>
+    <?php include "../../partials/header.php" ?>
 
-         <div class="menu">
-            <nav>
-                <ul>
-                    <li><a href="../inicio.php">Inicio</a></li>
-                    <li><a href="../categorias/categorias.php">Productos</a></li>
-                    <li><a href="empresa.php">Empresas</a></li>
-                    <li><a href="../pedidos/pedidos.php">Pedidos</a></li>
-                    <li><a href="../carrito/carrito.php">Carrito</a></li>
-                        
-                </ul>
-            </nav>
-         </div>
-         <form class="formulario_buscar" action="../buscar.php" method="get" role="search">
-                <input  type="search" placeholder="Buscar" name="q" aria-label="Search">
-                <button class="buscar " type="submit"> Buscar</button>
-        </form>
-        </div>
-        <div class="eslogan">
-            <h1>PATPA</h1>
-            <p>Para ti de Puerto Asís</p>
-        </div>
-    </header>
     
     <!--  cuando se le da a la empresa para ver detalles -->
     <div class="informacion_articulo">
@@ -117,41 +63,42 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <!-- fin cuando se le da a la empresa para ver detalles -->
         <div class="portada_empresa">   
-            <img src="../../<?php echo $row['fondo']?>" class="fondo" alt="">
-            <img src="../../<?php echo $row['foto']?>" class="portada_logo" alt="">
-            <h2><?php echo $row['usuario']?></h2>
-            <h3><?php echo $row['nombre_categoria']?></h3>
-            <p style="margin-top: 7px;font-size: 16px;"><?php echo $row['direccion']?></p>
+            <img src="../../<?php echo $empresa_selecionada ['fondo']?>" class="fondo" alt="">
+            <img src="../../<?php echo $empresa_selecionada ['foto']?>" class="portada_logo" alt="">
+            <h2><?php echo $empresa_selecionada ['usuario']?></h2>
+            <h3><?php echo $empresa_selecionada ['nombre_categoria']?></h3>
+            <p style="margin-top: 7px;font-size: 16px;"><?php echo $empresa_selecionada ['direccion']?></p>
             <p style="margin-top: 12px;">Calificacion: </p>
             <br>
             <hr>
             
             <div class="portada_menu">
-            <?php 
-            $informacion_seccion_empresa->data_seek(0);
-            $articulos_empresa->data_seek(0);
-            while($filas_informacion_secciones_empresa = $informacion_seccion_empresa->fetch_assoc()){?>
-                <div>
-                    <p><?php echo $filas_informacion_secciones_empresa['nombre']?></p>
-                </div>
                 <?php 
-            }
-            $informacion_seccion_empresa->data_seek(0);
-
-            ?>
+                $informacion_seccion_empresa->data_seek(0);
+                $articulos_empresa_result->data_seek(0);
+                while($filas_informacion_secciones_empresa = $informacion_seccion_empresa->fetch_assoc()){ 
+                    $seccion = $filas_informacion_secciones_empresa['id']; ?>
+                    <a href="#<?php echo $seccion; ?>" class="seccion-enlace">
+                        <div>
+                            <p><?php echo $filas_informacion_secciones_empresa['nombre']; ?></p>
+                        </div>
+                    </a>
+                <?php } 
+                $informacion_seccion_empresa->data_seek(0);
+                ?>
             </div>
             
         </div>
         
         <div class="menu_empresa">
             <?php while($filas_informacion_secciones_empresa = $informacion_seccion_empresa->fetch_assoc()){
-                $seccion=$filas_informacion_secciones_empresa['id']?> 
-                <div class="contenido_menu">
-                    <h2><?php echo $filas_informacion_secciones_empresa['nombre'];?></h2>
+                $seccion_menu=$filas_informacion_secciones_empresa['id']?> 
+                <div id="<?= $seccion_menu ?>" class="contenido_menu">
+                    <h2  ><?php echo $filas_informacion_secciones_empresa['nombre'];?></h2>
 
                 <?php 
-                $articulos_empresa->data_seek(0);
-                while($filas_articulos_empresa = $articulos_empresa->fetch_assoc()){
+                $articulos_empresa_result->data_seek(0);
+                while($filas_articulos_empresa = $articulos_empresa_result->fetch_assoc()){
                     if($filas_articulos_empresa['seccion_id'] == $seccion) {
                         ?> 
                 <div class="menu_inventario" id="articulo-id" data-id="<?php echo $filas_articulos_empresa['id']; ?>">
@@ -180,9 +127,9 @@ if(!isset($_SESSION['usuario'])){
         <div class="informacion_empresa">
             <div class="informacion_basica">
                 <h2 >Sobre Empresa</h2>
-                <div><h4>Direccion</h4><p>cra 17</p></div>
-                <div><h4>Calificacion</h4><p>cra 17</p></div>
-                <div><h4>Producto Popular</h4><p>cra 17</p></div>
+                <div><h4>Direccion</h4><p><?= $row["direccion"]?></p></div>
+                <div><h4>Calificacion</h4><p><?= $row["calificacion"]?></p></div>
+                <div><h4>Producto Estrella</h4><p>cra 17</p></div>
                 <div><h4>Horario apertura</h4><p>cra 17</p></div>
                 <div><h4>Horario de cierre</h4><p>cra 17</p></div>
                 
@@ -203,9 +150,7 @@ if(!isset($_SESSION['usuario'])){
 
                     <input type="hidden" value="<?php echo $fila_coordenadas['latitud'] ?>"
                     id="latitud">
-                    <form action="editar.php" method="POST">
-                     <button class="boton_editar" name="editar_mapa" value="<?=  $usuario_id; ?>">Editar</button>
-                    </form>
+                    
                     <h3>Direccion</h3>
                     <p>calle</p>
                     <div id="map">
@@ -214,32 +159,34 @@ if(!isset($_SESSION['usuario'])){
                 </div>
             </div>
             <div class="comentarios"> 
-                <form action="" id="formularioComentarios">
-                    <div class="calificacion" data-calificacion="0" required>
-                        <h3>Calificacion: </h3>
-                        <span class="estrella" data-valor="1">&#9733;</span>
-                        <span class="estrella" data-valor="2">&#9733;</span>
-                        <span class="estrella" data-valor="3">&#9733;</span>
-                        <span class="estrella" data-valor="4">&#9733;</span>
-                        <span class="estrella" data-valor="5">&#9733;</span>
-                    </div>  
-                    <div class="comentar">
-                        <textarea name="comentario" id="comentario" class="comentario" minlength="10" required></textarea>
-                    </div>
-                    <input type="hidden" id="calificacionSeleccionada" name="calificacion" value="0">
-                    <input type="hidden" id="empresa_id" name="empresa_id" value="<?= $empresa_id ?>">
-                    <button type="button" id="enviarComentario">Comentar</button>
-                </form>
+                <div class="formulario_comentar">
+                    <form action="" id="formularioComentarios">
+                        <div class="calificacion" data-calificacion="0" required>
+                            <h3>Calificacion: </h3>
+                            <span class="estrella" data-valor="1">&#9733;</span>
+                            <span class="estrella" data-valor="2">&#9733;</span>
+                            <span class="estrella" data-valor="3">&#9733;</span>
+                            <span class="estrella" data-valor="4">&#9733;</span>
+                            <span class="estrella" data-valor="5">&#9733;</span>
+                        </div>  
+                        <div class="comentar">
+                            <textarea name="comentario" id="comentario" class="comentario" minlength="10" required></textarea>
+                        </div>
+                        <input type="hidden" id="calificacionSeleccionada" name="calificacion" value="0">
+                        <input type="hidden" id="empresa_id" name="empresa_id" value="<?= $empresa_id ?>">
+                        <button type="button" id="enviarComentario">Comentar</button>
+                    </form>
+                </div>
                 <div class="comentario_usuario">
                     <?php 
-                        $comentarios_empresa->data_seek(0);
-                        while($filas_comentarios_empresa = $comentarios_empresa->fetch_assoc()){ ?>
+                        $comentarios_empresa_result->data_seek(0);
+                        while($filas_comentarios_empresa = $comentarios_empresa_result->fetch_assoc()){ ?>
                         <div class="usuario_comentado">
                             <img src="../../<?= $filas_comentarios_empresa['imagen_usuario']; ?>" alt="">
                     
                             <div class="info_usuario">
                                 <h3><?= $filas_comentarios_empresa['nombre_usuario']; ?></h3>
-                                <?php while($fila_calificacion_usuario = $calificacion_usuario->fetch_assoc()) { ?>
+                                <?php while($fila_calificacion_usuario = $calificacion_usuario_result->fetch_assoc()) { ?>
                                     <p class="calificacion_estrella">&#9733; <?= $fila_calificacion_usuario['calificacion'] ?></p>
                                 <?php } ?>
                             </div>
@@ -254,24 +201,8 @@ if(!isset($_SESSION['usuario'])){
         </div>
        
     </main>
-    <footer>
-        <div class="contenido_footer">
-            <div class="cookies">
-                <a href="#">Cookies</a>
-                <a href="#">Normas</a>
-            </div>
-            <div class="informacion">
-                <p>Telefono: 1111111</p>
-                <p>Correo: patpaoficiak@gmail.com</p>
-            </div>
-            <div class="redes_sociales">
-                <a href="#"><img src="../../images/facebook_logo.png" alt=""></a>
-                <a href="#"><img src="../../images/instagram_logo.png" alt=""></a>
-                <a href="#"><img src="../../images/twitter_logo.png" alt=""></a>
+    <?php include "../../partials/footer.php" ?>
 
-            </div>
-        </div>
-    </footer>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="../../js/vista_empresa.js"></script>

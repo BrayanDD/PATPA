@@ -12,7 +12,7 @@ $result_usuario = $stmt_usuario->get_result();
 $row = $result_usuario->fetch_assoc();
 $usuario_id = $row['id'];
 $usuario_id_rol = $row['id_rol'];
-$stmt_usuario->close();
+
 
 // Consulta de mejores artículos
 $articulos_empresa = $conn->query("SELECT articulo.*, categoria.categorias AS nombre_categoria, seccion.nombre AS nombre_seccion
@@ -32,7 +32,7 @@ $stmt_seccion_empresa->bind_param("i", $usuario_id);
 $stmt_seccion_empresa->execute();
 $informacion_seccion_empresa = $stmt_seccion_empresa->get_result();
 $filas_informacion_secciones_empresa = $informacion_seccion_empresa->fetch_assoc();
-$stmt_seccion_empresa->close();
+
 
 // Empresas mejor calificadas
 $consulta_empresas = $conn->query("SELECT usuario.*, categoria.categorias as nombre_categoria FROM usuario 
@@ -62,7 +62,7 @@ if (isset($_POST['idArticulo'])) {
         echo 'error';
         exit;
     }
-    $stmt_info_articulo->close();
+   
 }
 
 // Mostrar información de empresa con AJAX
@@ -85,7 +85,7 @@ if (isset($_POST['idEmpresa'])) {
         echo 'error';
         exit;
     }
-    $stmt_info_empresa->close();
+   
 }
 
 mysqli_close($conn);

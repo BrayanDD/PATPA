@@ -5,9 +5,9 @@ include "conex.php";
 // Obtener información del usuario
 $correo = $_SESSION['usuario'];
 $datos_usu = $conn->query("SELECT * FROM usuario WHERE correo = '$correo'");
-$usuario = $datos_usu->fetch_assoc();
-$usuario_id = $usuario['id'];
-
+$row = $datos_usu->fetch_assoc();
+$usuario_id = $row['id'];
+$usuario_id_rol = $row['id_rol'];
 // Añadir artículos al carrito
 if (isset($_POST['id_producto']) && isset($_POST['cantidad'])) {
     $id_articulo = $conn->real_escape_string($_POST['id_producto']);
@@ -16,7 +16,7 @@ if (isset($_POST['id_producto']) && isset($_POST['cantidad'])) {
     $agregar_a_carrito = $conn->prepare("INSERT INTO carrito (articulo_id, cantidad, id_usuario) VALUES (?, ?, ?)");
     $agregar_a_carrito->bind_param("iii", $id_articulo, $cantidad, $usuario_id);
     $agregar_a_carrito->execute();
-    $agregar_a_carrito->close();
+    
 }
 
 // Consultar artículos en el carrito
@@ -41,7 +41,7 @@ if (isset($_POST['nueva_cantidad'])) {
     } else {
         echo "Error al actualizar cantidad: " . $conn->error;
     }
-    $actualizar_cantidad->close();
+  
 }
 
 // Eliminar artículo del carrito
@@ -56,7 +56,7 @@ if (isset($_POST['eliminar_de_carrito'])) {
     } else {
         echo "Error al eliminar artículo del carrito: " . $conn->error;
     }
-    $eliminar_de_carrito->close();
+   
 }
 
 // Procesar pedido al pagar
@@ -89,7 +89,7 @@ if (isset($_POST['final_pagar'])) {
                 if (!$insertar_producto_pedido->execute()) {
                     echo "Error al insertar producto en productos_pedido: " . $conn->error;
                 }
-                $insertar_producto_pedido->close();
+             
             }
 
             // Limpiar carrito después de procesar el pedido
@@ -99,7 +99,7 @@ if (isset($_POST['final_pagar'])) {
         } else {
             echo "Error al insertar pedido: " . $conn->error;
         }
-        $insertar_pedido->close();
+       
     } else {
         header("location: ../content/carrito/carrito.php");
         exit;

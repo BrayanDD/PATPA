@@ -83,7 +83,10 @@ function cerrarArticulo() {
 function cerrarEmpresa() {
   empresa_info.style.opacity = "0";
   footer.style.visibility = "visible";
+  empresa_info.style.display = "block";
   setTimeout(function () {
     empresa_info.style.visibility = "hidden";
+    empresa_info.style.display = "none";
+
   }, 5);
 }

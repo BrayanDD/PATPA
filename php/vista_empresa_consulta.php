@@ -7,11 +7,13 @@ $correo = $_SESSION['usuario'];
 
 // Preparar la consulta
 $stmt_usu = $conn->prepare("SELECT * FROM usuario WHERE correo = ?");
-$stmt_usu->bind_param("s", $correo); // "s" indica que el parámetro es un string
+$stmt_usu->bind_param("s", $correo);
 $stmt_usu->execute();
 $datos_usu = $stmt_usu->get_result();
-$usuario = $datos_usu->fetch_assoc();
-$stmt_usu->close();
+$row = $datos_usu->fetch_assoc();
+$rol_id = $row['id_rol'];
+$usuario_id_rol = $row['id_rol'];
+
 
 // Empresa seleccionada
 if(isset($_GET['id_empresa'])){
@@ -27,9 +29,9 @@ $stmt_consulta = $conn->prepare("SELECT usuario.*, rol.rol AS nombre_rol, catego
 $stmt_consulta->bind_param("i", $empresa_id); 
 $stmt_consulta->execute();
 $consulta = $stmt_consulta->get_result();
-$row = $consulta->fetch_assoc();
-$usuario_id = $row['id'];
-$stmt_consulta->close();
+$empresa_selecionada = $consulta->fetch_assoc();
+
+
 
 // Todas las categorias
 $categorias = $conn->query("SELECT * FROM categoria");
@@ -40,7 +42,7 @@ $stmt_seccion_empresa = $conn->prepare("SELECT * FROM seccion WHERE empresa_id =
 $stmt_seccion_empresa->bind_param("i", $empresa_id); 
 $stmt_seccion_empresa->execute();
 $informacion_seccion_empresa = $stmt_seccion_empresa->get_result();
-$stmt_seccion_empresa->close();
+
 
 
 
@@ -57,7 +59,7 @@ $articulos_empresa_stmt->bind_param("i", $empresa_id);
 $articulos_empresa_stmt->execute();
 $articulos_empresa_result = $articulos_empresa_stmt->get_result();
 $filas_articulos_empresa = $articulos_empresa_result->fetch_assoc();
-$articulos_empresa_stmt->close();
+
 
 // Consultar Coordenadas de Usuario
 $coordenadas_stmt = $conn->prepare("SELECT * FROM usuario WHERE id = ?");
@@ -65,7 +67,7 @@ $coordenadas_stmt->bind_param("i", $empresa_id);
 $coordenadas_stmt->execute();
 $coordenadas_result = $coordenadas_stmt->get_result();
 $fila_coordenadas = $coordenadas_result->fetch_assoc();
-$coordenadas_stmt->close();
+
 
 
 // MOSTRAR COMENTARIO
@@ -92,10 +94,10 @@ if($comentarios_empresa_result){
         $calificacion_usuario_stmt->execute();
         $calificacion_usuario_result = $calificacion_usuario_stmt->get_result();
 
-        $calificacion_usuario_stmt->close();
+   
     }
 }
-$comentarios_empresa_stmt->close();
+
 
 mysqli_close($conn);
 

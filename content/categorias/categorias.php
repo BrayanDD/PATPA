@@ -30,79 +30,8 @@
 
   <body>
     <!-- CABEZA DE MENU -->
-    <header>
-        <div class="bar_menu">
-            <span class="linea1_bar_menu"></span>
-            <span class="linea2_bar_menu"></span>
-            <span class="linea3_bar_menu"></span>
-        </div>
-        <div class="logo">
-        
-             <?php
-                if($row['id_rol'] == 1){
-                ?>
-                    <img src="../../images/img_usuario_usuario.png" alt="">
-                    <p>Usuario</p>
-                <?php 
-                    }elseif($row['id_rol'] == 2){
-                ?>
-                <img src="../../images/img_usuario_repartidor.png" alt="">
-                <p>Repartidor</p>
-                    
-                <?php 
-                }else{
-                    ?>
-                    <img src="../../images/img_usuario_empresa.jpg" alt="">
-                   <p>Empresa</p>
-                    <?php 
-                   }
-                    ?> 
-        </div>
-        <div class="usuario">
-        <?php
-                if($row['id_rol'] == 1){
-                ?>
-                    <a href="../usuarios/usuario_usuario.php"><img src="../../<?php  echo $row['foto']?>" alt=""></a>
-                    <a href="../usuarios/usuario_usuario.php"><?php echo $row['usuario']?></a>
-                <?php
-                     }elseif($row['id_rol'] == 2){
-                 ?>
-                       <img src="../<?php echo $row['foto']?>" alt="">
-                      <a href=""><?php echo $row['usuario']?></a>
-                 <?php  
-                 }else{
-                    ?>
-                      <a href="../usuarios/usuario_empresa.kphp"><img src="../../<?php echo $row['foto']?>" alt=""></a>
-                     <a href="../usuarios/usuario_empresa.php"><?php  echo $row['usuario']?></a>
-                       <?php 
-                     }
-                     ?>
-            
-        </div>
-        <div class="container_header">
-            <button class="cerrar_informacion">Cerrar</button>
-            <div class="menu">
-                 <nav class="nav-list">
-                     <ul>
-                        <li><a href="../inicio.php">Inicio</a></li>
-                        
-                        <li><a href="../empresas/empresa.php">Empresas</a></li>
-                        <li><a href="../pedidos/pedidos.php">Pedidos</a></li>
-                        <li><a href="../carrito/carrito.php">Cariito</a></li>
-                                
-                    </ul>
-                 </nav>
-             </div>
-            <form class="formulario_buscar" action="../buscar.php" method="get" role="search">
-                <input  type="search" placeholder="Buscar" name="q" aria-label="Search">
-                <button class="buscar " type="submit"> Buscar</button>
-            </form>
-        </div>
-        <div class="eslogan">
-            <h1>PATPA</h1>
-            <p>Para ti de Puerto Asís</p>
-        </div>
-    </header>
+    <?php include "../../partials/header.php" ?>
+
     <main>
          <!-- INICIO -->
         
@@ -198,24 +127,8 @@
                 ?>
 
     </main>
-    <footer>
-        <div class="contenido_footer">
-            <div class="cookies">
-                <a href="#">Cookies</a>
-                <a href="#">Normas</a>
-            </div>
-            <div class="informacion">
-                <p>Telefono: 1111111</p>
-                <p>Correo: patpaoficiak@gmail.com</p>
-            </div>
-            <div class="redes_sociales">
-                <a href="#"><img src="../../images/facebook_logo.png" alt=""></a>
-                <a href="#"><img src="../../images/instagram_logo.png" alt=""></a>
-                <a href="#"><img src="../../images/twitter_logo.png" alt=""></a>
+    <?php include "../../partials/footer.php" ?>
 
-            </div>
-        </div>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 

@@ -25,6 +25,6 @@ if($resultado->num_rows > 0){
     ';
 }
 
-$stmt->close();
+
 mysqli_close($conn);
 ?>

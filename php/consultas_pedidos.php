@@ -9,16 +9,16 @@ $stmt_datos_usu = $conn->prepare("SELECT * FROM usuario WHERE correo = ?");
 $stmt_datos_usu->bind_param("s", $correo);
 $stmt_datos_usu->execute();
 $result_datos_usu = $stmt_datos_usu->get_result();
-$usuario = $result_datos_usu->fetch_assoc();
-$usuario_id = $usuario['id'];
-$stmt_datos_usu->close();
+$row = $result_datos_usu->fetch_assoc();
+$usuario_id = $row['id'];
+$usuario_id_rol = $row['id_rol'];
 
 // Todos los añadidos al carrito
 $stmt_pedidos = $conn->prepare("SELECT * FROM pedido WHERE id_usuario = ?");
 $stmt_pedidos->bind_param("i", $usuario_id);
 $stmt_pedidos->execute();
 $pedidos = $stmt_pedidos->get_result();
-$stmt_pedidos->close();
+
 
 // ACTUALIZAR CANTIDAD ARTICULOS
 if (isset($_POST['id_pedido'])) {
@@ -51,9 +51,9 @@ if (isset($_POST['id_pedido'])) {
 
         $datos_pedido[$id_pedido] = $articulos_pedido;
         echo json_encode($datos_pedido);
-        $stmt_articulos->close();
+        
     }
-    $stmt_verificar_pedido->close();
+   
 }
 
 if (isset($_POST['eliminar_pedido'])) {
@@ -69,7 +69,7 @@ if (isset($_POST['eliminar_pedido'])) {
         $stmt_producto_pedido = $conn->prepare("DELETE FROM productos_pedido WHERE id_pedido = ?");
         $stmt_producto_pedido->bind_param("i", $eliminar_pedido);
         $stmt_producto_pedido->execute();
-        $stmt_producto_pedido->close();
+       
         
         $stmt_eliminar_pedido = $conn->prepare("DELETE FROM pedido WHERE id = ?");
         $stmt_eliminar_pedido->bind_param("i", $eliminar_pedido);
@@ -85,9 +85,9 @@ if (isset($_POST['eliminar_pedido'])) {
         } else {
             echo "error" . $conn->error;
         }
-        $stmt_eliminar_pedido->close();
+       
     }
-    $stmt_verificar_pedido->close();
+  
 }
 
 mysqli_close($conn);

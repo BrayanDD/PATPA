@@ -31,7 +31,7 @@ $consulta->execute();
 $result_consulta = $consulta->get_result();
 $row = $result_consulta->fetch_assoc();
 $usuario_id = $row['id'];
-
+$usuario_id_rol = $row['id_rol'];
 function construirHTMLArticulos($articulos_empresa)
 {
     $html = '';
@@ -104,7 +104,7 @@ if (isset($_GET['id_categoria'])) {
         }
         $datosConsulta[$categoria_id] = $Articulos_categoria;
 
-        $articulos_empresa->close();
+        
     }
 }
 
@@ -139,7 +139,7 @@ if (isset($_POST['pagina']) && isset($_POST['categoriaId'])) {
         echo 'error';
         exit;
     }
-    $articulo_categoria->close();
+    
 }
 
 mysqli_close($conn);
